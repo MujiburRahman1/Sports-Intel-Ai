@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import DashboardEmbed from '../components/DashboardEmbed';
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,9 +22,10 @@ export default function Home() {
         <div className="hidden md:flex items-center gap-8 text-gray-300">
           <Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link>
           <a href="#videos" className="hover:text-cyan-400 transition-colors">Videos</a>
-          <a href="#dashboard" className="hover:text-cyan-400 transition-colors">Dashboard</a>
+          <Link href="/agents" className="hover:text-cyan-400 transition-colors">🤖 Agents</Link>
           <Link href="/voice" className="hover:text-cyan-400 transition-colors">Voice</Link>
           <Link href="/mistral" className="hover:text-cyan-400 transition-colors">🧠 Mistral AI</Link>
+          <Link href="/personalized" className="hover:text-cyan-400 transition-colors">🤖 Personalized</Link>
           <Link href="/wallet" className="hover:text-cyan-400 transition-colors">💰 Wallet</Link>
           <a href="mailto:marwatstack@gmail.com" className="hover:text-cyan-400 transition-colors">Contact</a>
         </div>
@@ -50,9 +50,10 @@ export default function Home() {
           <div className="container py-4 flex flex-col gap-4">
             <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">Home</Link>
             <a href="#videos" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">Videos</a>
-            <a href="#dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">Dashboard</a>
+            <Link href="/agents" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">🤖 Agents</Link>
             <Link href="/voice" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">Voice</Link>
             <Link href="/mistral" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">🧠 Mistral AI</Link>
+            <Link href="/personalized" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">🤖 Personalized</Link>
             <Link href="/wallet" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">💰 Wallet</Link>
             <a href="mailto:marwatstack@gmail.com" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">Contact</a>
           </div>
@@ -73,12 +74,6 @@ export default function Home() {
           <a href="#videos" className="px-8 py-4 rounded-full border-2 border-cyan-400 text-cyan-400 font-semibold hover:bg-cyan-400 hover:text-white transition-all">Watch Videos</a>
         </div>
       </header>
-
-      {/* Embedded Dashboard (above videos) */}
-      <section id="dashboard" className="relative z-10 container py-14">
-        <h2 className="text-3xl font-bold text-white mb-6">Agents Dashboard</h2>
-        <DashboardEmbed />
-      </section>
 
       {/* Videos Section */}
       <section id="videos" className="relative z-10 container py-14">

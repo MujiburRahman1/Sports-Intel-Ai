@@ -8,7 +8,7 @@ export default function WalletPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen gradient-hero relative overflow-hidden">
+    <div className="min-h-screen bg-slate-900 relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/5 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
@@ -16,17 +16,19 @@ export default function WalletPage() {
       </div>
 
       {/* Navbar */}
-      <nav className="relative z-10 container py-6 flex items-center justify-between">
+      <nav className="border-b border-slate-700/50 bg-slate-900/95 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-white font-bold text-2xl">
           SportsIntel<span className="text-cyan-400">AI</span>
         </Link>
         <div className="hidden md:flex items-center gap-8 text-gray-300">
           <Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link>
-          <a href="/#videos" className="hover:text-cyan-400 transition-colors">Videos</a>
-          <a href="/#dashboard" className="hover:text-cyan-400 transition-colors">Dashboard</a>
+          <Link href="/#videos" className="hover:text-cyan-400 transition-colors">Videos</Link>
+          <Link href="/agents" className="hover:text-cyan-400 transition-colors">🤖 Agents</Link>
           <Link href="/voice" className="hover:text-cyan-400 transition-colors">Voice</Link>
           <Link href="/mistral" className="hover:text-cyan-400 transition-colors">🧠 Mistral AI</Link>
-          <Link href="/wallet" className="hover:text-cyan-400 transition-colors text-cyan-400">💰 Wallet</Link>
+          <Link href="/personalized" className="hover:text-cyan-400 transition-colors">🤖 Personalized</Link>
+          <Link href="/wallet" className="text-cyan-400 font-medium">💰 Wallet</Link>
           <a href="mailto:marwatstack@gmail.com" className="hover:text-cyan-400 transition-colors">Contact</a>
         </div>
         <button
@@ -42,18 +44,20 @@ export default function WalletPage() {
             )}
           </svg>
         </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden relative z-10 border-t border-blue-500/20 bg-slate-900/95">
+        <div className="md:hidden border-t border-slate-700/50 bg-slate-900/95">
           <div className="container py-4 flex flex-col gap-4">
             <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">Home</Link>
-            <a href="/#videos" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">Videos</a>
-            <a href="/#dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">Dashboard</a>
+            <Link href="/#videos" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">Videos</Link>
+            <Link href="/agents" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">🤖 Agents</Link>
             <Link href="/voice" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">Voice</Link>
             <Link href="/mistral" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">🧠 Mistral AI</Link>
-            <Link href="/wallet" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400 text-cyan-400">💰 Wallet</Link>
+            <Link href="/personalized" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">🤖 Personalized</Link>
+            <Link href="/wallet" onClick={() => setIsMobileMenuOpen(false)} className="text-cyan-400 font-medium">💰 Wallet</Link>
             <a href="mailto:marwatstack@gmail.com" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-cyan-400">Contact</a>
           </div>
         </div>

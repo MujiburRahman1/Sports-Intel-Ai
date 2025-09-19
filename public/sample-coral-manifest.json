@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "name": "Sample Community Agents",
+  "description": "Sample Coral manifest with community agents",
+  "agents": [
+    {
+      "id": "weather-agent",
+      "name": "Weather Agent",
+      "description": "Get current weather and forecasts for any location",
+      "methods": ["invoke"],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "City or location name"
+          },
+          "days": {
+            "type": "number",
+            "description": "Number of forecast days (1-7)"
+          }
+        },
+        "required": ["location"]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "object",
+            "description": "Current weather conditions"
+          },
+          "forecast": {
+            "type": "array",
+            "description": "Weather forecast for specified days"
+          }
+        }
+      },
+      "endpoint": "https://api.weather.com/v1/weather"
+    },
+    {
+      "id": "crypto-agent",
+      "name": "Crypto Agent",
+      "description": "Get cryptocurrency prices and market data",
+      "methods": ["invoke"],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "description": "Cryptocurrency symbol (e.g., BTC, ETH)"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Fiat currency for price (e.g., USD, EUR)"
+          }
+        },
+        "required": ["symbol"]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "number",
+            "description": "Current price"
+          },
+          "change_24h": {
+            "type": "number",
+            "description": "24-hour price change percentage"
+          },
+          "market_cap": {
+            "type": "number",
+            "description": "Market capitalization"
+          }
+        }
+      },
+      "endpoint": "https://api.coingecko.com/api/v3/simple/price"
+    },
+    {
+      "id": "translation-agent",
+      "name": "Translation Agent",
+      "description": "Translate text between different languages",
+      "methods": ["invoke"],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Text to translate"
+          },
+          "target_language": {
+            "type": "string",
+            "description": "Target language code (e.g., es, fr, de)"
+          },
+          "source_language": {
+            "type": "string",
+            "description": "Source language code (auto-detect if not provided)"
+          }
+        },
+        "required": ["text", "target_language"]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "translated_text": {
+            "type": "string",
+            "description": "Translated text"
+          },
+          "source_language": {
+            "type": "string",
+            "description": "Detected source language"
+          },
+          "confidence": {
+            "type": "number",
+            "description": "Translation confidence score"
+          }
+        }
+      },
+      "endpoint": "https://api.translate.com/v1/translate"
+    }
+  ]
+}

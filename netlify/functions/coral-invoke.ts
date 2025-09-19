@@ -57,6 +57,14 @@ export async function handler(event: NetlifyEvent) {
       "mistral-multilingual": "mistral-multilingual",
       "mistral-nft-metadata": "mistral-nft-metadata",
       "multi-sport": "multi-sport",
+      "personalized-agent": "personalized-agent",
+      "gamification-agent": "gamification-agent",
+      "nba-stats": "nba",
+      "nfl-stats": "nfl",
+      "pipeline": "pipeline",
+      "sentiment-agent": "sentiment",
+      "predict-agent": "predict",
+      "visual-analytics-agent": "visual-analytics",
     };
 
     const target = operationMap[agent];

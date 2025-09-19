@@ -1,0 +1,241 @@
+{
+  "manifest": {
+    "version": "1.0.0",
+    "name": "Sports Analytics External Agents",
+    "description": "Sample external agents for testing Community Agents feature",
+    "author": "SportsIntelAI Team",
+    "created": "2024-01-15",
+    "agents": [
+      {
+        "id": "weather-agent",
+        "name": "Weather Agent",
+        "description": "Get current weather conditions for any city",
+        "version": "1.0.0",
+        "methods": [
+          {
+            "name": "get_weather",
+            "description": "Get current weather for a city",
+            "input": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "description": "City name (e.g., 'New York', 'London')"
+                },
+                "country": {
+                  "type": "string",
+                  "description": "Country code (e.g., 'US', 'UK')",
+                  "default": "US"
+                }
+              },
+              "required": ["city"]
+            },
+            "output": {
+              "type": "object",
+              "properties": {
+                "city": {"type": "string"},
+                "country": {"type": "string"},
+                "temperature": {"type": "number"},
+                "condition": {"type": "string"},
+                "humidity": {"type": "number"},
+                "wind_speed": {"type": "number"},
+                "timestamp": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "endpoints": {
+          "http": "https://api.weather-example.com/weather"
+        }
+      },
+      {
+        "id": "crypto-agent",
+        "name": "Crypto Price Agent",
+        "description": "Get real-time cryptocurrency prices and market data",
+        "version": "1.0.0",
+        "methods": [
+          {
+            "name": "get_crypto_price",
+            "description": "Get current price of a cryptocurrency",
+            "input": {
+              "type": "object",
+              "properties": {
+                "symbol": {
+                  "type": "string",
+                  "description": "Cryptocurrency symbol (e.g., 'BTC', 'ETH', 'ADA')"
+                },
+                "currency": {
+                  "type": "string",
+                  "description": "Fiat currency for price (e.g., 'USD', 'EUR')",
+                  "default": "USD"
+                }
+              },
+              "required": ["symbol"]
+            },
+            "output": {
+              "type": "object",
+              "properties": {
+                "symbol": {"type": "string"},
+                "name": {"type": "string"},
+                "price": {"type": "number"},
+                "currency": {"type": "string"},
+                "change_24h": {"type": "number"},
+                "market_cap": {"type": "number"},
+                "volume_24h": {"type": "number"},
+                "timestamp": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "endpoints": {
+          "http": "https://api.crypto-example.com/prices"
+        }
+      },
+      {
+        "id": "translation-agent",
+        "name": "Translation Agent",
+        "description": "Translate text between different languages",
+        "version": "1.0.0",
+        "methods": [
+          {
+            "name": "translate_text",
+            "description": "Translate text from one language to another",
+            "input": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "Text to translate"
+                },
+                "from_lang": {
+                  "type": "string",
+                  "description": "Source language code (e.g., 'en', 'es', 'fr')",
+                  "default": "auto"
+                },
+                "to_lang": {
+                  "type": "string",
+                  "description": "Target language code (e.g., 'en', 'es', 'fr')",
+                  "default": "en"
+                }
+              },
+              "required": ["text", "to_lang"]
+            },
+            "output": {
+              "type": "object",
+              "properties": {
+                "original_text": {"type": "string"},
+                "translated_text": {"type": "string"},
+                "from_language": {"type": "string"},
+                "to_language": {"type": "string"},
+                "confidence": {"type": "number"},
+                "timestamp": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "endpoints": {
+          "http": "https://api.translation-example.com/translate"
+        }
+      },
+      {
+        "id": "sports-news-agent",
+        "name": "Sports News Agent",
+        "description": "Get latest sports news and updates",
+        "version": "1.0.0",
+        "methods": [
+          {
+            "name": "get_sports_news",
+            "description": "Get latest sports news",
+            "input": {
+              "type": "object",
+              "properties": {
+                "sport": {
+                  "type": "string",
+                  "description": "Sport category (e.g., 'football', 'basketball', 'baseball')",
+                  "default": "all"
+                },
+                "team": {
+                  "type": "string",
+                  "description": "Specific team name (optional)"
+                },
+                "limit": {
+                  "type": "number",
+                  "description": "Number of news articles to return",
+                  "default": 10
+                }
+              }
+            },
+            "output": {
+              "type": "object",
+              "properties": {
+                "articles": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "title": {"type": "string"},
+                      "summary": {"type": "string"},
+                      "url": {"type": "string"},
+                      "published_at": {"type": "string"},
+                      "source": {"type": "string"}
+                    }
+                  }
+                },
+                "total_count": {"type": "number"},
+                "timestamp": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "endpoints": {
+          "http": "https://api.sports-news-example.com/news"
+        }
+      },
+      {
+        "id": "stock-agent",
+        "name": "Stock Market Agent",
+        "description": "Get stock market data and company information",
+        "version": "1.0.0",
+        "methods": [
+          {
+            "name": "get_stock_data",
+            "description": "Get stock market data for a company",
+            "input": {
+              "type": "object",
+              "properties": {
+                "symbol": {
+                  "type": "string",
+                  "description": "Stock symbol (e.g., 'AAPL', 'GOOGL', 'MSFT')"
+                },
+                "period": {
+                  "type": "string",
+                  "description": "Time period (e.g., '1d', '1w', '1m', '1y')",
+                  "default": "1d"
+                }
+              },
+              "required": ["symbol"]
+            },
+            "output": {
+              "type": "object",
+              "properties": {
+                "symbol": {"type": "string"},
+                "company_name": {"type": "string"},
+                "current_price": {"type": "number"},
+                "change": {"type": "number"},
+                "change_percent": {"type": "number"},
+                "volume": {"type": "number"},
+                "market_cap": {"type": "number"},
+                "high_52w": {"type": "number"},
+                "low_52w": {"type": "number"},
+                "timestamp": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "endpoints": {
+          "http": "https://api.stock-example.com/quote"
+        }
+      }
+    ]
+  }
+}

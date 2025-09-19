@@ -1,0 +1,348 @@
+{
+  "manifest": {
+    "version": "1.0.0",
+    "name": "Advanced Sports Analytics Agents",
+    "description": "Specialized sports analytics agents for comprehensive team analysis",
+    "author": "SportsIntelAI Community",
+    "created": "2024-01-15",
+    "agents": [
+      {
+        "id": "player-performance-agent",
+        "name": "Player Performance Agent",
+        "description": "Analyze individual player performance metrics and statistics",
+        "version": "1.0.0",
+        "methods": [
+          {
+            "name": "analyze_player",
+            "description": "Get detailed player performance analysis",
+            "input": {
+              "type": "object",
+              "properties": {
+                "player_name": {
+                  "type": "string",
+                  "description": "Player's full name"
+                },
+                "team": {
+                  "type": "string",
+                  "description": "Team name"
+                },
+                "sport": {
+                  "type": "string",
+                  "description": "Sport type (MLB, NBA, NFL, etc.)",
+                  "default": "MLB"
+                },
+                "season": {
+                  "type": "string",
+                  "description": "Season year (e.g., '2024')",
+                  "default": "2024"
+                }
+              },
+              "required": ["player_name", "team"]
+            },
+            "output": {
+              "type": "object",
+              "properties": {
+                "player_name": {"type": "string"},
+                "team": {"type": "string"},
+                "position": {"type": "string"},
+                "stats": {
+                  "type": "object",
+                  "properties": {
+                    "games_played": {"type": "number"},
+                    "batting_average": {"type": "number"},
+                    "home_runs": {"type": "number"},
+                    "rbis": {"type": "number"},
+                    "stolen_bases": {"type": "number"},
+                    "ops": {"type": "number"}
+                  }
+                },
+                "performance_rating": {"type": "number"},
+                "analysis": {"type": "string"},
+                "timestamp": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "endpoints": {
+          "http": "https://api.sports-analytics.com/player"
+        }
+      },
+      {
+        "id": "team-comparison-agent",
+        "name": "Team Comparison Agent",
+        "description": "Compare two teams across multiple metrics",
+        "version": "1.0.0",
+        "methods": [
+          {
+            "name": "compare_teams",
+            "description": "Compare two teams head-to-head",
+            "input": {
+              "type": "object",
+              "properties": {
+                "team1": {
+                  "type": "string",
+                  "description": "First team name"
+                },
+                "team2": {
+                  "type": "string",
+                  "description": "Second team name"
+                },
+                "sport": {
+                  "type": "string",
+                  "description": "Sport type",
+                  "default": "MLB"
+                },
+                "season": {
+                  "type": "string",
+                  "description": "Season year",
+                  "default": "2024"
+                }
+              },
+              "required": ["team1", "team2"]
+            },
+            "output": {
+              "type": "object",
+              "properties": {
+                "team1": {
+                  "type": "object",
+                  "properties": {
+                    "name": {"type": "string"},
+                    "record": {"type": "string"},
+                    "win_percentage": {"type": "number"},
+                    "runs_scored": {"type": "number"},
+                    "runs_allowed": {"type": "number"}
+                  }
+                },
+                "team2": {
+                  "type": "object",
+                  "properties": {
+                    "name": {"type": "string"},
+                    "record": {"type": "string"},
+                    "win_percentage": {"type": "number"},
+                    "runs_scored": {"type": "number"},
+                    "runs_allowed": {"type": "number"}
+                  }
+                },
+                "head_to_head": {
+                  "type": "object",
+                  "properties": {
+                    "games_played": {"type": "number"},
+                    "team1_wins": {"type": "number"},
+                    "team2_wins": {"type": "number"},
+                    "last_meeting": {"type": "string"}
+                  }
+                },
+                "prediction": {
+                  "type": "object",
+                  "properties": {
+                    "favored_team": {"type": "string"},
+                    "confidence": {"type": "number"},
+                    "reasoning": {"type": "string"}
+                  }
+                },
+                "timestamp": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "endpoints": {
+          "http": "https://api.sports-analytics.com/compare"
+        }
+      },
+      {
+        "id": "injury-report-agent",
+        "name": "Injury Report Agent",
+        "description": "Get latest injury reports and player status updates",
+        "version": "1.0.0",
+        "methods": [
+          {
+            "name": "get_injury_report",
+            "description": "Get current injury report for a team",
+            "input": {
+              "type": "object",
+              "properties": {
+                "team": {
+                  "type": "string",
+                  "description": "Team name"
+                },
+                "sport": {
+                  "type": "string",
+                  "description": "Sport type",
+                  "default": "MLB"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Injury status filter (active, inactive, day_to_day)",
+                  "default": "all"
+                }
+              },
+              "required": ["team"]
+            },
+            "output": {
+              "type": "object",
+              "properties": {
+                "team": {"type": "string"},
+                "injuries": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "player_name": {"type": "string"},
+                      "position": {"type": "string"},
+                      "injury": {"type": "string"},
+                      "status": {"type": "string"},
+                      "expected_return": {"type": "string"},
+                      "severity": {"type": "string"}
+                    }
+                  }
+                },
+                "total_injured": {"type": "number"},
+                "report_date": {"type": "string"},
+                "timestamp": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "endpoints": {
+          "http": "https://api.sports-analytics.com/injuries"
+        }
+      },
+      {
+        "id": "betting-odds-agent",
+        "name": "Betting Odds Agent",
+        "description": "Get current betting odds and line movements",
+        "version": "1.0.0",
+        "methods": [
+          {
+            "name": "get_betting_odds",
+            "description": "Get current betting odds for upcoming games",
+            "input": {
+              "type": "object",
+              "properties": {
+                "team1": {
+                  "type": "string",
+                  "description": "First team name"
+                },
+                "team2": {
+                  "type": "string",
+                  "description": "Second team name"
+                },
+                "sport": {
+                  "type": "string",
+                  "description": "Sport type",
+                  "default": "MLB"
+                },
+                "game_date": {
+                  "type": "string",
+                  "description": "Game date (YYYY-MM-DD format)"
+                }
+              },
+              "required": ["team1", "team2"]
+            },
+            "output": {
+              "type": "object",
+              "properties": {
+                "game": {
+                  "type": "object",
+                  "properties": {
+                    "team1": {"type": "string"},
+                    "team2": {"type": "string"},
+                    "date": {"type": "string"},
+                    "time": {"type": "string"}
+                  }
+                },
+                "odds": {
+                  "type": "object",
+                  "properties": {
+                    "team1_moneyline": {"type": "number"},
+                    "team2_moneyline": {"type": "number"},
+                    "spread": {"type": "number"},
+                    "over_under": {"type": "number"},
+                    "team1_spread_odds": {"type": "number"},
+                    "team2_spread_odds": {"type": "number"}
+                  }
+                },
+                "movement": {
+                  "type": "object",
+                  "properties": {
+                    "team1_movement": {"type": "string"},
+                    "team2_movement": {"type": "string"},
+                    "spread_movement": {"type": "string"},
+                    "total_movement": {"type": "string"}
+                  }
+                },
+                "timestamp": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "endpoints": {
+          "http": "https://api.sports-analytics.com/odds"
+        }
+      },
+      {
+        "id": "fantasy-sports-agent",
+        "name": "Fantasy Sports Agent",
+        "description": "Get fantasy sports rankings and recommendations",
+        "version": "1.0.0",
+        "methods": [
+          {
+            "name": "get_fantasy_rankings",
+            "description": "Get fantasy sports player rankings",
+            "input": {
+              "type": "object",
+              "properties": {
+                "sport": {
+                  "type": "string",
+                  "description": "Sport type",
+                  "default": "MLB"
+                },
+                "position": {
+                  "type": "string",
+                  "description": "Player position (e.g., 'P', 'C', '1B', '2B', '3B', 'SS', 'OF')",
+                  "default": "all"
+                },
+                "league_type": {
+                  "type": "string",
+                  "description": "League type (standard, ppr, half_ppr)",
+                  "default": "standard"
+                },
+                "limit": {
+                  "type": "number",
+                  "description": "Number of players to return",
+                  "default": 50
+                }
+              }
+            },
+            "output": {
+              "type": "object",
+              "properties": {
+                "rankings": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "rank": {"type": "number"},
+                      "player_name": {"type": "string"},
+                      "team": {"type": "string"},
+                      "position": {"type": "string"},
+                      "projected_points": {"type": "number"},
+                      "tier": {"type": "string"},
+                      "notes": {"type": "string"}
+                    }
+                  }
+                },
+                "total_players": {"type": "number"},
+                "last_updated": {"type": "string"},
+                "timestamp": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "endpoints": {
+          "http": "https://api.sports-analytics.com/fantasy"
+        }
+      }
+    ]
+  }
+}
