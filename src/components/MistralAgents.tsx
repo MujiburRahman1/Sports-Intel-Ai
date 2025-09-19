@@ -51,7 +51,7 @@ export default function MistralAgents() {
     language: "English"
   });
 
-  const callAgent = async (agentType: string, data: any) => {
+  const callAgent = async (agentType: string, data: Record<string, unknown>) => {
     setLoading(true);
     setError(null);
     setResult("");
@@ -182,7 +182,7 @@ Create comprehensive metadata including name, description, attributes, and story
     }
   };
 
-  const getMockResponse = (agentType: string, data: any) => {
+  const getMockResponse = (agentType: string, data: Record<string, unknown>) => {
     if (agentType === "reasoning") {
         return `Advanced Analysis for ${data.team1} vs ${data.team2}
 
@@ -202,9 +202,9 @@ Analysis based on recent form, head-to-head data, and situational factors. Confi
     }
 
     if (agentType === "codestral") {
-        return `# ${data.type.replace('_', ' ').toUpperCase()} - ${data.language}
+        return `# ${(data.type as string).replace('_', ' ').toUpperCase()} - ${data.language}
 
-\`\`\`${data.language.toLowerCase()}
+\`\`\`${(data.language as string).toLowerCase()}
 # ${data.requirements}
 import pandas as pd
 import numpy as np
@@ -307,7 +307,7 @@ Metadata JSON
 {
   "name": "${playerName} - ${achievement}",
   "description": "${playerName} of the ${team} achieved ${achievement}, marking a historic moment in baseball history. This legendary accomplishment showcases exceptional skill and dedication to the sport.",
-  "image": "https://example.com/nft-images/${playerName.toLowerCase().replace(' ', '-')}-${achievement.toLowerCase().replace(' ', '-')}.jpg",
+  "image": "https://example.com/nft-images/${(playerName as string).toLowerCase().replace(' ', '-')}-${(achievement as string).toLowerCase().replace(' ', '-')}.jpg",
   "attributes": [
     {"trait_type": "Player", "value": "${playerName}"},
     {"trait_type": "Team", "value": "${team}"},

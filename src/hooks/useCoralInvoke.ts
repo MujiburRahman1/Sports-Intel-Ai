@@ -5,7 +5,7 @@ interface CoralInvokeOptions {
 }
 
 interface CoralInvokeResult {
-  data?: any;
+  data?: Record<string, unknown>;
   error?: string;
   source?: string;
 }
@@ -15,8 +15,8 @@ export function useCoralInvoke() {
   const [error, setError] = useState<string | null>(null);
 
   const invoke = useCallback(async (
-    agentId: string, 
-    params: any = {}, 
+    agentId: string,
+    params: Record<string, unknown> = {},
     options: CoralInvokeOptions = {}
   ): Promise<CoralInvokeResult> => {
     setLoading(true);

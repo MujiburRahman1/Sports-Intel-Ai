@@ -8,7 +8,13 @@ export default function AgentsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showCommunityAgents, setShowCommunityAgents] = useState(false);
   const [externalAgentUrl, setExternalAgentUrl] = useState('');
-  const [communityAgents, setCommunityAgents] = useState<any[]>([]);
+  const [communityAgents, setCommunityAgents] = useState<Array<{
+    id: string;
+    name: string;
+    description: string;
+    source: string;
+    added_at: string;
+  }>>([]);
   const [communityLoading, setCommunityLoading] = useState(false);
   const [communityError, setCommunityError] = useState('');
 
@@ -35,7 +41,11 @@ export default function AgentsPage() {
       }
 
       // Add agents to the list
-      const newAgents = manifest.manifest.agents.map((agent: any) => ({
+      const newAgents = manifest.manifest.agents.map((agent: {
+        id: string;
+        name: string;
+        description: string;
+      }) => ({
         ...agent,
         manifestUrl: externalAgentUrl,
         id: `${agent.id}-${Date.now()}`, // Make unique

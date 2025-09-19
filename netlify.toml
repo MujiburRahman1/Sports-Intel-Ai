@@ -1,32 +1,14 @@
 [build]
   command = "npm run build"
-  publish = "out"
-
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
+  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "18"
-  NPM_FLAGS = "--production=false"
-
-# Basic SPA-style fallback for static export
-[[redirects]]
-  from = "/*"
-  to = "/404.html"
-  status = 404
-
-[[redirects]]
-  from = "/demo"
-  to = "/voice"
-  status = 301
-
-[[redirects]]
-  from = "/voice"
-  to = "/voice/index.html"
-  status = 200
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+[functions]
+  directory = "netlify/functions"

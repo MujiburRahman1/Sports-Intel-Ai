@@ -31,9 +31,9 @@ function toDisplayString(msg: unknown): string {
 }
 
 export default function VoicePage() {
-  const [error, setError] = useState<string | null>(null);
-  const [log, setLog] = useState<string[]>([]);
-  const [connecting, setConnecting] = useState(false);
+  // const [error, setError] = useState<string | null>(null);
+  // const [log, setLog] = useState<string[]>([]);
+  // const [connecting, setConnecting] = useState(false);
   const [micMuted, setMicMuted] = useState(true);
   const pttDownRef = useRef(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -66,53 +66,54 @@ export default function VoicePage() {
     preferHeadphonesForIosDevices: true,
   });
 
-  const { status, isSpeaking, canSendFeedback } = conversation;
+  const { status } = conversation;
+  // const { isSpeaking, canSendFeedback } = conversation;
   const agentId = PUBLIC_AGENT_ID || "agent_5401k27xr572e2bavxz9nm9vztd1";
 
-  const connect = useCallback(async () => {
-    try {
-      setConnecting(true);
-      setError(null);
-      // Prompt mic permission early per SDK guidance
-      try {
-        await navigator.mediaDevices.getUserMedia({ audio: true });
-      } catch (micErr) {
-        throw new Error("Microphone permission denied or unavailable");
-      }
+  // const connect = useCallback(async () => {
+  //   try {
+  //     setConnecting(true);
+  //     setError(null);
+  //     // Prompt mic permission early per SDK guidance
+  //     try {
+  //       await navigator.mediaDevices.getUserMedia({ audio: true });
+  //     } catch {
+  //       throw new Error("Microphone permission denied or unavailable");
+  //     }
 
-      const qs = PUBLIC_AGENT_ID ? `?agent_id=${encodeURIComponent(PUBLIC_AGENT_ID)}` : "";
-      const resp = await fetch(`/.netlify/functions/elevenSignedUrl${qs}`);
-      if (!resp.ok) {
-        const text = await resp.text();
-        throw new Error(text || "Failed to obtain signed URL");
-      }
-      const data = (await resp.json()) as { signedUrl?: string };
-      if (!data.signedUrl) throw new Error("Missing signedUrl in response");
+  //     const qs = PUBLIC_AGENT_ID ? `?agent_id=${encodeURIComponent(PUBLIC_AGENT_ID)}` : "";
+  //     const resp = await fetch(`/.netlify/functions/elevenSignedUrl${qs}`);
+  //     if (!resp.ok) {
+  //       const text = await resp.text();
+  //       throw new Error(text || "Failed to obtain signed URL");
+  //     }
+  //     const data = (await resp.json()) as { signedUrl?: string };
+  //     if (!data.signedUrl) throw new Error("Missing signedUrl in response");
 
-      // Start session via WebSocket using the signed URL
-      await conversation.startSession({
-        signedUrl: data.signedUrl,
-        connectionType: "websocket",
-      });
+  //     // Start session via WebSocket using the signed URL
+  //     await conversation.startSession({
+  //       signedUrl: data.signedUrl,
+  //       connectionType: "websocket",
+  //     });
 
-      // Default to muted until PTT is pressed
-      setMicMuted(true);
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : typeof e === "string" ? e : JSON.stringify(e);
-      setError(msg);
-    } finally {
-      setConnecting(false);
-    }
-  }, [conversation]);
+  //     // Default to muted until PTT is pressed
+  //     setMicMuted(true);
+  //   } catch (e) {
+  //     const msg = e instanceof Error ? e.message : typeof e === "string" ? e : JSON.stringify(e);
+  //     setError(msg);
+  //   } finally {
+  //     setConnecting(false);
+  //   }
+  // }, [conversation]);
 
-  const disconnect = useCallback(async () => {
-    try {
-      await conversation.endSession();
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : typeof e === "string" ? e : JSON.stringify(e);
-      setError(msg);
-    }
-  }, [conversation]);
+  // const disconnect = useCallback(async () => {
+  //   try {
+  //     await conversation.endSession();
+  //   } catch (e) {
+  //     const msg = e instanceof Error ? e.message : typeof e === "string" ? e : JSON.stringify(e);
+  //     setError(msg);
+  //   }
+  // }, [conversation]);
 
   // Push-to-talk: space key hold
   useEffect(() => {
@@ -141,19 +142,19 @@ export default function VoicePage() {
   }, [conversation, status]);
 
   // Touch/mouse PTT button handlers
-  const handlePttStart = useCallback(() => {
-    if (status === "connected") {
-      pttDownRef.current = true;
-      setMicMuted(false);
-    }
-  }, [conversation, status]);
+  // const handlePttStart = useCallback(() => {
+  //   if (status === "connected") {
+  //     pttDownRef.current = true;
+  //     setMicMuted(false);
+  //   }
+  // }, [conversation, status]);
 
-  const handlePttEnd = useCallback(() => {
-    if (status === "connected") {
-      pttDownRef.current = false;
-      setMicMuted(true);
-    }
-  }, [conversation, status]);
+  // const handlePttEnd = useCallback(() => {
+  //   if (status === "connected") {
+  //     pttDownRef.current = false;
+  //     setMicMuted(true);
+  //   }
+  // }, [conversation, status]);
 
   return (
     <div className="min-h-screen bg-slate-900 relative overflow-hidden">

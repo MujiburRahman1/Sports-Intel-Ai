@@ -9,7 +9,7 @@ interface WalletInfo {
 }
 
 interface PaymentInfo {
-  paymentIntent?: any;
+  paymentIntent?: Record<string, unknown>;
   success?: boolean;
   message?: string;
 }
@@ -35,7 +35,7 @@ export default function CrossmintWallet() {
       };
       
       setWalletInfo(mockResult);
-    } catch (err) {
+    } catch {
       setError("Network error");
     } finally {
       setLoading(false);
@@ -55,7 +55,7 @@ export default function CrossmintWallet() {
       };
       
       setWalletInfo(prev => ({ ...prev, ...mockBalance }));
-    } catch (err) {
+    } catch {
       setError("Network error");
     } finally {
       setLoading(false);
@@ -81,7 +81,7 @@ export default function CrossmintWallet() {
       };
       
       setPaymentInfo(mockPayment);
-    } catch (err) {
+    } catch {
       setError("Network error");
     } finally {
       setLoading(false);
@@ -145,7 +145,7 @@ export default function CrossmintWallet() {
               <p className="text-sm text-green-400"> {paymentInfo.message}</p>
               {paymentInfo.paymentIntent && (
                 <p className="text-xs text-slate-300 mt-1">
-                  Payment Intent: {paymentInfo.paymentIntent.id} - {paymentInfo.paymentIntent.amount} {paymentInfo.paymentIntent.currency} - {paymentInfo.paymentIntent.status}
+                  Payment Intent: {(paymentInfo.paymentIntent as Record<string, unknown>).id} - {(paymentInfo.paymentIntent as Record<string, unknown>).amount} {(paymentInfo.paymentIntent as Record<string, unknown>).currency} - {(paymentInfo.paymentIntent as Record<string, unknown>).status}
                 </p>
               )}
             </div>

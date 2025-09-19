@@ -2760,3 +2760,7 @@ async def gamification_agent(request: GamificationRequest):
             "status": "error",
             "summary": f"Gamification error: {str(e)}"
         }
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "timestamp": datetime.now().isoformat()}

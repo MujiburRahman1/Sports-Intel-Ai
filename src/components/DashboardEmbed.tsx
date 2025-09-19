@@ -79,47 +79,72 @@ export default function DashboardEmbed() {
   >(null);
   const [showRaw, setShowRaw] = useState<boolean>(false);
   const [pipelineLoading, setPipelineLoading] = useState(false);
-  const [pipelineResult, setPipelineResult] = useState<any>(null);
+  const [pipelineResult, setPipelineResult] = useState<{
+    summary: string;
+    pipelineId: string;
+    agents: string[];
+    timestamp: string;
+  } | null>(null);
   const [showPipeline, setShowPipeline] = useState<boolean>(false);
   const [sentimentLoading, setSentimentLoading] = useState(false);
-  const [sentimentResult, setSentimentResult] = useState<any>(null);
+  const [sentimentResult, setSentimentResult] = useState<{
+    score: number;
+    sentiment: string;
+    sources: string[];
+    timestamp: string;
+  } | null>(null);
   const [showSentiment, setShowSentiment] = useState<boolean>(false);
   const [predictLoading, setPredictLoading] = useState(false);
-  const [predictResult, setPredictResult] = useState<any>(null);
+  const [predictResult, setPredictResult] = useState<{
+    winProbability: number;
+    prediction: string;
+    confidence: number;
+    timestamp: string;
+  } | null>(null);
   const [showPredict, setShowPredict] = useState<boolean>(false);
   const [predictionType, setPredictionType] = useState("win_probability");
   const [visualLoading, setVisualLoading] = useState(false);
-  const [visualResult, setVisualResult] = useState<any>(null);
+  const [visualResult, setVisualResult] = useState<{
+    chartType: string;
+    data: Record<string, unknown>;
+    timestamp: string;
+  } | null>(null);
   const [showVisual, setShowVisual] = useState<boolean>(false);
   const [chartType, setChartType] = useState("heatmap");
   const [dataPeriod, setDataPeriod] = useState("season");
-  const [generatedUserId, setGeneratedUserId] = useState("");
+  // const [generatedUserId, setGeneratedUserId] = useState("");
   
   // Community Agents state
   const [externalAgentUrl, setExternalAgentUrl] = useState("");
-  const [communityAgents, setCommunityAgents] = useState<any[]>([]);
+  const [communityAgents, setCommunityAgents] = useState<Array<{
+    id: string;
+    name: string;
+    description: string;
+    source: string;
+    added_at: string;
+  }>>([]);
   const [communityLoading, setCommunityLoading] = useState(false);
   const [showCommunityAgents, setShowCommunityAgents] = useState(false);
 
   // Generate unique User ID
-  useEffect(() => {
-    const generateUserId = () => {
-      const timestamp = Date.now().toString(36);
-      const randomStr = Math.random().toString(36).substring(2, 8);
-      const userId = `user_${timestamp}_${randomStr}`;
-      setGeneratedUserId(userId);
-      // setUserId(userId);
-    };
+  // useEffect(() => {
+  //   const generateUserId = () => {
+  //     const timestamp = Date.now().toString(36);
+  //     const randomStr = Math.random().toString(36).substring(2, 8);
+  //     const userId = `user_${timestamp}_${randomStr}`;
+  //     setGeneratedUserId(userId);
+  //     // setUserId(userId);
+  //   };
     
-    generateUserId();
-  }, []);
+  //   generateUserId();
+  // }, []);
 
   useEffect(() => {
     (async () => {
       try {
         const resp = await fetch("/.netlify/functions/coral-manifest");
         const json = await resp.json();
-        const list: ManifestAgent[] = (json?.agents || []).map((a: any) => ({ id: a.id, name: a.name, description: a.description }));
+        const list: ManifestAgent[] = (json?.agents || []).map((a: { id: string; name: string; description: string }) => ({ id: a.id, name: a.name, description: a.description }));
         setAgents(list);
         const initial: Record<string, boolean> = {};
         for (const a of list) initial[a.id] = a.id === "aggregate" ? true : false;
@@ -153,7 +178,11 @@ export default function DashboardEmbed() {
       }
       
       // Add to community agents list
-      const newAgents = manifest.agents.map((agent: any) => ({
+      const newAgents = manifest.agents.map((agent: {
+        id: string;
+        name: string;
+        description: string;
+      }) => ({
         ...agent,
         source: externalAgentUrl,
         added_at: new Date().toISOString()
@@ -192,7 +221,7 @@ export default function DashboardEmbed() {
   }
 
   async function invoke(agent: string, params: Record<string, unknown>) {
-    const body = { agent, method: "invoke", params };
+    // const body = { agent, method: "invoke", params };
     const base = getFunctionsBase();
     
     try {
@@ -222,8 +251,8 @@ export default function DashboardEmbed() {
     try {
       const sport = params.sport as string || "mlb";
       const team = params.team as string || "Yankees";
-      const team2 = params.team2 as string || "Red Sox";
-      const action = params.action as string || "all";
+      // const team2 = params.team2 as string || "Red Sox";
+      // const action = params.action as string || "all";
 
       let prompt = "";
       
@@ -716,172 +745,13 @@ export default function DashboardEmbed() {
   }
 
 
-  function generateMockPersonalizedConfig(team: string, agentType: string) {
-    if (agentType === "team_agent") {
-      return {
-        agent_name: `${team} Team Agent`,
-        description: `Your personal ${team} analyst and assistant`,
-        specializations: [
-          `${team} game analysis`,
-          `${team} player statistics`,
-          `${team} schedule tracking`,
-          `${team} news aggregation`
-        ],
-        custom_prompts: {
-          greeting: `Hello! I'm your personal ${team} assistant. How can I help you today?`,
-          analysis_style: "detailed",
-          focus_areas: ["stats", "news", "predictions"],
-          notification_preferences: ["games", "news", "trades"]
-        },
-        data_sources: [
-          `${team} official statistics`,
-          `${selectedSport} league data`,
-          `${team} social media`,
-          `${team} news sources`
-        ],
-        capabilities: [
-          "Real-time game analysis",
-          "Player performance tracking",
-          "Trade rumor analysis",
-          "Schedule optimization",
-          "Fan sentiment monitoring"
-        ]
-      };
-    } else if (agentType === "custom_analyst") {
-      return {
-        agent_name: `${team} Custom Analyst`,
-        description: `Advanced analytics specialist for ${team}`,
-        specializations: [
-          "Advanced statistics analysis",
-          "Predictive modeling",
-          "Performance optimization",
-          "Strategic insights"
-        ],
-        custom_prompts: {
-          greeting: `Welcome! I'm your ${team} analytics specialist. Ready to dive deep into the data?`,
-          analysis_depth: "expert",
-          statistical_focus: ["advanced_metrics", "predictions"],
-          report_format: "comprehensive"
-        },
-        data_sources: [
-          "Advanced statistics databases",
-          "Machine learning models",
-          "Historical performance data",
-          "League-wide comparisons"
-        ],
-        capabilities: [
-          "Advanced metric calculations",
-          "Predictive analytics",
-          "Performance benchmarking",
-          "Strategic recommendations",
-          "Data visualization"
-        ]
-      };
-    } else {
-      return {
-        agent_name: `${team} Personal Scout`,
-        description: `Your personal ${team} scout and talent evaluator`,
-        specializations: [
-          "Player scouting reports",
-          "Talent evaluation",
-          "Trade analysis",
-          "Draft insights"
-        ],
-        custom_prompts: {
-          greeting: `Hey there! I'm your ${team} scout. Let's find the next star!`,
-          scouting_focus: ["prospects", "current_players"],
-          evaluation_criteria: ["potential", "current_skill"],
-          report_style: "detailed"
-        },
-        data_sources: [
-          "Scouting databases",
-          "Player development metrics",
-          "League prospect rankings",
-          "Performance analytics"
-        ],
-        capabilities: [
-          "Player evaluation reports",
-          "Trade value analysis",
-          "Prospect tracking",
-          "Talent comparison",
-          "Development recommendations"
-        ]
-      };
-    }
-  }
+  // function generateMockPersonalizedConfig(team: string, agentType: string) {
+  //   return {};
+  // }
 
-  function generateMockRuntimeManifest(userId: string, team: string, sport: string) {
-    return {
-      name: `Personalized ${team} Agent Runtime`,
-      description: `Runtime manifest for ${team} fan - ${userId}`,
-      version: "1.0.0",
-      user_specific: true,
-      user_id: userId,
-      favorite_team: team,
-      sport: sport.toUpperCase(),
-      generated_at: new Date().toISOString(),
-      agents: [
-        {
-          id: `personalized-${team.toLowerCase().replace(/\s+/g, '-')}-agent`,
-          name: `${team} Personal Agent`,
-          description: `Your personal ${team} assistant`,
-          user_id: userId,
-          favorite_team: team,
-          sport: sport.toUpperCase(),
-          methods: [
-            {
-              name: "analyze_team",
-              description: `Analyze ${team} performance and provide insights`,
-              input_schema: {
-                type: "object",
-                properties: {
-                  analysis_type: { type: "string", enum: ["game", "season", "player", "comparison"] },
-                  context: { type: "string", description: "Specific context for analysis" }
-                },
-                required: ["analysis_type"]
-              }
-            },
-            {
-              name: "get_insights",
-              description: `Get personalized insights about ${team}`,
-              input_schema: {
-                type: "object",
-                properties: {
-                  insight_type: { type: "string", enum: ["stats", "news", "predictions", "recommendations"] },
-                  timeframe: { type: "string", enum: ["today", "week", "month", "season"] }
-                },
-                required: ["insight_type"]
-              }
-            }
-          ],
-          custom_config: {
-            greeting: `Hello! I'm your personal ${team} assistant. How can I help you today?`,
-            specializations: [
-              `${team} game analysis`,
-              `${team} player statistics`,
-              `${team} schedule tracking`,
-              `${team} news aggregation`
-            ]
-          }
-        }
-      ],
-      capabilities: [
-        "Real-time game analysis",
-        "Player performance tracking",
-        "Trade rumor analysis",
-        "Schedule optimization",
-        "Fan sentiment monitoring"
-      ],
-      data_sources: [
-        `${team} official statistics`,
-        `${sport} league data`,
-        `${team} social media`,
-        `${team} news sources`
-      ],
-      created_at: new Date().toISOString(),
-      last_updated: new Date().toISOString()
-    };
-  }
+  // function generateMockRuntimeManifest(userId: string, team: string, sport: string) {
+  //   return {};
+  // }
 
 
 
@@ -1061,7 +931,7 @@ export default function DashboardEmbed() {
 
       // Extract a human summary and next game (if available) from aggregate
       try {
-        const agg: any = outputs["aggregate"];
+        const agg: Record<string, unknown> = outputs["aggregate"];
         if (agg && typeof agg === "object") {
           let summaryText = agg.summary || "";
           if (agg.mock) {
@@ -1096,7 +966,7 @@ export default function DashboardEmbed() {
       }
 
       setResult(JSON.stringify(outputs, null, 2));
-    } catch (e: any) {
+    } catch (e: unknown) {
       const errorMessage = e?.message || String(e);
       if (errorMessage.includes("GPT-5 API not configured")) {
         setResult("❌ GPT-5 API key not configured. Please add your GPT-5 API key to enable real data generation.");
@@ -1241,7 +1111,7 @@ export default function DashboardEmbed() {
         <div className="grid grid-cols-1 gap-2">
           {agents
             .slice()
-            .sort((a, b) => agentOrder.indexOf(a.id as any) - agentOrder.indexOf(b.id as any))
+            .sort((a, b) => agentOrder.indexOf(a.id) - agentOrder.indexOf(b.id))
             .map((a) => (
               <label key={a.id} className="flex items-center gap-2">
                 <input

@@ -8,7 +8,11 @@ export default function PersonalizedAgents() {
   
   // Personalized Agents State
   const [personalizedLoading, setPersonalizedLoading] = useState(false);
-  const [personalizedResult, setPersonalizedResult] = useState<any>(null);
+  const [personalizedResult, setPersonalizedResult] = useState<{
+    config: Record<string, unknown>;
+    manifest: Record<string, unknown>;
+    timestamp: string;
+  } | null>(null);
   const [showPersonalized, setShowPersonalized] = useState<boolean>(false);
   const [favoriteTeam, setFavoriteTeam] = useState("");
   const [personalizedAgentType, setPersonalizedAgentType] = useState("team_agent");
@@ -16,9 +20,21 @@ export default function PersonalizedAgents() {
 
   // Gamification State
   const [gamificationLoading, setGamificationLoading] = useState(false);
-  const [gamificationResult, setGamificationResult] = useState<any>(null);
+  const [gamificationResult, setGamificationResult] = useState<{
+    question?: string;
+    options?: string[];
+    answer?: string;
+    score?: number;
+    leaderboard?: Array<{user: string; score: number}>;
+    timestamp: string;
+  } | null>(null);
   const [showGamification, setShowGamification] = useState<boolean>(false);
-  const [currentQuestion, setCurrentQuestion] = useState<any>(null);
+  const [currentQuestion, setCurrentQuestion] = useState<{
+    question: string;
+    options: string[];
+    correct_answer: number;
+    explanation: string;
+  } | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [userScore, setUserScore] = useState({ trivia_points: 0, prediction_points: 0, total_points: 0 });
 
@@ -539,7 +555,7 @@ export default function PersonalizedAgents() {
                       <div className="mt-4">
                         <h5 className="text-purple-300 font-medium mb-2">Endpoints:</h5>
                         <div className="space-y-2">
-                          {personalizedResult.runtime_manifest.endpoints?.map((endpoint: any, index: number) => (
+                          {personalizedResult.runtime_manifest.endpoints?.map((endpoint: { path: string; method: string; description: string }, index: number) => (
                             <div key={index} className="bg-slate-700/50 rounded p-3">
                               <div className="flex justify-between text-sm mb-1">
                                 <span className="text-purple-400">Name:</span>
@@ -653,7 +669,7 @@ export default function PersonalizedAgents() {
                   <div className="bg-slate-800/50 rounded-lg p-4">
                     <h4 className="text-yellow-300 font-medium mb-3">🏆 Leaderboard</h4>
                     <div className="space-y-2">
-                      {gamificationResult.leaderboard.map((entry: any, index: number) => (
+                      {gamificationResult.leaderboard.map((entry: { user_id: string; score: number }, index: number) => (
                         <div key={entry.user_id} className="flex items-center justify-between p-2 bg-slate-700/50 rounded">
                           <div className="flex items-center gap-3">
                             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${

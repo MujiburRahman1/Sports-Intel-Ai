@@ -5,7 +5,7 @@ interface CoralAgent {
   agent_name: string;
   description: string;
   methods: string[];
-  input_schema: any;
+  input_schema: Record<string, unknown>;
   http_endpoint: string;
 }
 
