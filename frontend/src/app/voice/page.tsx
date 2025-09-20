@@ -157,12 +157,7 @@ export default function VoicePage() {
   // }, [conversation, status]);
 
   return (
-    <div className="min-h-screen bg-slate-900 relative overflow-hidden">
-      {/* Background accents */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/5 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/5 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-700" />
-      </div>
+    <div className="min-h-screen bg-slate-900">
 
       {/* Navbar */}
       <nav className="border-b border-slate-700/50 bg-slate-900/95 backdrop-blur-sm sticky top-0 z-50">
