@@ -7,7 +7,7 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen gradient-hero relative overflow-hidden">
+    <div className="min-h-screen bg-slate-900 relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/5 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
@@ -15,7 +15,8 @@ export default function Home() {
       </div>
 
       {/* Navbar */}
-      <nav className="relative z-10 container py-6 flex items-center justify-between">
+      <nav className="border-b border-slate-700/50 bg-slate-900/95 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-white font-bold text-2xl">
           SportsIntel<span className="text-cyan-400">AI</span>
         </Link>
@@ -28,6 +29,7 @@ export default function Home() {
           <Link href="/personalized" className="hover:text-cyan-400 transition-colors">🤖 Personalized</Link>
           <Link href="/wallet" className="hover:text-cyan-400 transition-colors">💰 Wallet</Link>
           <a href="mailto:marwatstack@gmail.com" className="hover:text-cyan-400 transition-colors">Contact</a>
+        </div>
         </div>
         <button
           aria-label="Toggle mobile menu"
