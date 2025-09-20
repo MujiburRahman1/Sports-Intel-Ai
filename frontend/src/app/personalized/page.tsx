@@ -103,11 +103,6 @@ export default function PersonalizedPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center text-gray-400">
             <p>Built by <span className="text-cyan-400">Mujib ur Rahman</span></p>
-            <p className="mt-2">
-              <a href="mailto:marwatstack@gmail.com" className="hover:text-cyan-400 transition-colors">
-                marwatstack@gmail.com
-              </a>
-            </p>
           </div>
         </div>
       </footer>

@@ -30,7 +30,7 @@ export function useCoralInvoke() {
 
       // Try direct backend call first (since Netlify dev is not running)
       console.log(`Calling agent: ${agentId} with params:`, params);
-      const backendUrl = `http://127.0.0.1:8001/tools/${agentId}`;
+      const backendUrl = `http://127.0.0.1:8000/tools/${agentId}`;
       console.log(`Backend URL: ${backendUrl}`);
       
       const response = await fetch(backendUrl, {

@@ -43,7 +43,7 @@
 - **Health monitoring** endpoints
 
 ### Deployment
-- **Frontend**: Netlify (https://sportsintelai.netlify.app)
+- **Frontend**: Vercel (https://sports-intel-ai.vercel.app)
 - **Backend**: Render (Python 3.11.11)
 
 ---
@@ -113,11 +113,11 @@ const addExternalAgent = async (manifestUrl: string) => {
 ---
 
 ## Slide 8: Deployment & DevOps
-### Netlify Frontend
+### Vercel Frontend
 - **Automatic Deployments** - Git-based CI/CD
-- **Serverless Functions** - Netlify functions for API proxy
+- **Serverless Functions** - Vercel functions for API proxy
 - **Environment Variables** - Secure configuration
-- **Custom Domain** - https://sportsintelai.netlify.app
+- **Custom Domain** - https://sports-intel-ai.vercel.app
 
 ### Render Backend
 - **Python 3.11.11** - Latest supported version

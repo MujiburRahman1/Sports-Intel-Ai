@@ -4,7 +4,7 @@ import os
 from dataclasses import dataclass
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()  # Re-enabled for API keys
 
 @dataclass
 class Settings:

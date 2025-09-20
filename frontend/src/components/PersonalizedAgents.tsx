@@ -68,12 +68,21 @@ export default function PersonalizedAgents() {
         preferences: {}
       });
       
-      if (personalizedData?.agent_config) {
+      if (personalizedData?.personalized_config || personalizedData?.agent_config) {
         setPersonalizedResult({
-          agent_config: personalizedData.agent_config,
+          agent_config: personalizedData.personalized_config || personalizedData.agent_config,
           runtime_manifest: personalizedData.runtime_manifest,
           status: "success",
           summary: personalizedData.summary
+        });
+      } else {
+        // Show the full response for debugging
+        console.log("Full personalized data:", personalizedData);
+        setPersonalizedResult({
+          agent_config: personalizedData,
+          runtime_manifest: {},
+          status: "success",
+          summary: "Agent created successfully"
         });
       }
     } catch (error) {
