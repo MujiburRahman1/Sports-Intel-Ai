@@ -14,7 +14,7 @@ from news_service import NewsService, NewsArticle
 from youtube_service import search_videos, VideoItem
 from sports_data_service import SportsDataService
 
-load_dotenv()  # Re-enabled for API keys
+# load_dotenv()  # Commented out to avoid .env file issues
 app = FastAPI(title="Hackathon AI Backend", version="0.1.0")
 
 # CORS for local dev (Next.js and Netlify dev)
