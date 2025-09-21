@@ -74,27 +74,14 @@ export default function Home() {
       {/* Videos Section */}
       <section id="videos" className="relative z-10 container py-14">
         <h2 className="text-3xl font-bold text-white text-center mb-10">Videos</h2>
-        <div className="grid md:grid-cols-2 gap-8 justify-items-center">
-          <div className="card p-4 w-full max-w-3xl">
-            <h3 className="text-lg font-semibold text-cyan-300 mb-3 text-center">Product Demo (≤60s)</h3>
+        <div className="flex justify-center">
+          <div className="card p-4 w-full max-w-4xl">
+            <h3 className="text-lg font-semibold text-cyan-300 mb-3 text-center">Product Video</h3>
             <div className="aspect-video rounded-xl overflow-hidden">
               <iframe
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/H-z0v4WMSco"
-                title="Demo Video"
-                frameBorder={0}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
-          </div>
-          <div className="card p-4 w-full max-w-3xl">
-            <h3 className="text-lg font-semibold text-cyan-300 mb-3 text-center">Tech Overview (≤60s)</h3>
-            <div className="aspect-video rounded-xl overflow-hidden">
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/knhhYob-y-Q"
-                title="Tech Video"
+                src="https://www.youtube.com/embed/GAgLIqp8LFY"
+                title="Product Video"
                 frameBorder={0}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
